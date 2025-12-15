@@ -17,15 +17,24 @@ interface ChatResponse {
   };
 }
 
+
+interface SiteInfo {
+  name?: string;
+  values?: string;
+  products?: string;
+}
+
 export const sendChatMessage = async (
   message: string,
-  history: ChatMessage[] = []
+  history: ChatMessage[] = [],
+  siteInfo?: SiteInfo
 ): Promise<string> => {
   const response = await axios.post<ChatResponse>(
     `${API_BASE_URL}/api/chat`,
     {
       message,
-      history: history.map(m => ({ role: m.role, content: m.content }))
+      history: history.map(m => ({ role: m.role, content: m.content })),
+      siteInfo
     }
   );
   return response.data.data.response;

@@ -3,13 +3,13 @@ import { chatService } from './chat.service';
 
 export const sendMessage = async (req: Request, res: Response) => {
   try {
-    const { message, history } = req.body;
+    const { message, history, siteInfo } = req.body;
     
     if (!message || typeof message !== 'string') {
       return res.status(400).json({ error: 'Message requis' });
     }
 
-    const response = await chatService.chat(message, history || []);
+    const response = await chatService.chat(message, history || [], siteInfo);
     
     res.json({ data: { response } });
   } catch (error) {
