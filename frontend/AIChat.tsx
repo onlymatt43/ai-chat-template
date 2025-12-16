@@ -28,12 +28,20 @@ Qu'est-ce que je peux faire pour toi ?`,
 };
 // ═══════════════════════════════════════════════════════════════
 
+
+interface SiteInfo {
+  name?: string;
+  values?: string;
+  products?: string;
+}
+
 interface AIChatProps {
   isOpen: boolean;
   onClose: () => void;
+  siteInfo?: SiteInfo;
 }
 
-export const AIChat = ({ isOpen, onClose }: AIChatProps) => {
+export const AIChat = ({ isOpen, onClose, siteInfo }: AIChatProps) => {
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -73,7 +81,7 @@ export const AIChat = ({ isOpen, onClose }: AIChatProps) => {
         .filter(m => m.id !== 'welcome')
         .map(m => ({ role: m.role, content: m.content }));
 
-      const responseContent = await sendChatMessage(input.trim(), history);
+      const responseContent = await sendChatMessage(input.trim(), history, siteInfo);
 
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
