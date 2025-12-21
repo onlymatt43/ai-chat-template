@@ -11,19 +11,23 @@ interface Message {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 🎯 PERSONNALISE LE MESSAGE DE BIENVENUE
+// 🎯 MESSAGE DE BIENVENUE SPREAD IT
 // ═══════════════════════════════════════════════════════════════
 const INITIAL_MESSAGE: Message = {
   id: 'welcome',
   role: 'assistant',
-  content: `👋 Salut ! Je suis l'assistant AI.
+  content: `👋 Hey! Je suis l'assistant SPREAD IT! 🚀
 
-Je peux t'aider avec :
-• Comment fonctionne le site
+J'aide les visiteurs à partager facilement le contenu :
+
+✨ **Ce que je fais :**
+• T'expliquer comment utiliser SPREAD IT
+• Te conseiller sur quel réseau partager
 • Répondre à tes questions
-• Résoudre des problèmes
 
-Qu'est-ce que je peux faire pour toi ?`,
+💡 **T'as aimé un post?** Utilise les boutons SPREAD IT en bas pour le partager - caption optimisée + image prête automatiquement!
+
+Besoin d'aide? 😊`,
   timestamp: new Date()
 };
 // ═══════════════════════════════════════════════════════════════
