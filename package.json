@@ -1,0 +1,17 @@
+{
+  "name": "ai-chat-template",
+  "version": "1.0.0",
+  "description": "AI Chat avec presets pour Spread It",
+  "main": "api/chat.ts",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Build complete'"
+  },
+  "dependencies": {
+    "@vercel/node": "^3.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+}
