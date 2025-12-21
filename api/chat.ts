@@ -62,8 +62,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     if (!response.ok) {
-      console.error('OpenAI API error:', response.status, await response.text());
-      return res.status(500).json({ error: 'OpenAI API error' });
+      const errText = await response.text();
+      console.error('OpenAI API error:', response.status, errText);
+      return res.status(500).json({ error: 'OpenAI API error', details: response.status, key_present: !!apiKey, key_length: apiKey?.length || 0 });
     }
 
     const data = await response.json();
