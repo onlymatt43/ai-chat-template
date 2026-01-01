@@ -78,10 +78,35 @@ Un template complet pour intégrer un assistant AI marketing sur n'importe quel 
 4. Générer une vidéo via l'API
    - Endpoint: `POST https://<TON_BACKEND>/api/video`
    - Body: soit `{ workflow: <full_workflow_json> }` soit `{ prompt, negative_prompt, img_url, parameters }`.
+   - Si `VIDEO_PROVIDER=wan` ou que `WAN_API_KEY`/`WAN_API_URL` sont configurés, la requête sera envoyée à WAN 2.2 automatiquement.
 
 5. Notes sécurité
-   - **Ne commit jamais les secrets** (`OPENAI_API_KEY`, `COMFYUI_API_KEY`, `DB URL`, `JWT_SECRET`)
+   - **Ne commit jamais les secrets** (`OPENAI_API_KEY`, `WAN_API_KEY`, `COMFYUI_API_KEY`, `DB URL`, `JWT_SECRET`)
    - Stocke-les uniquement via l’UI Render (Environment -> Add Environment Variable) ou via secrets manager.
+
+## WAN 2.2 (configuration rapide)
+- Variables d'environnement (Render / .env) :
+  - `WAN_API_KEY` = (Secret)
+  - `WAN_API_URL` = (ex: `https://api.novita.ai/v3/async/wan-2.2-i2v`)
+  - `VIDEO_PROVIDER` = `wan` (optionnel, forcera l'usage de WAN)
+
+Exemple cURL pour lancer une génération (retourne `task_id` ou réponse selon le fournisseur) :
+
+```sh
+curl -s -X POST "$WAN_API_URL" \
+  -H "Authorization: Bearer $WAN_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"input":{"prompt":"A small cat running on the grass","img_url":"https://example.com/frame.png","parameters":{"resolution":"720P","duration":5}}}'
+```
+
+ou via le backend (recommande) :
+
+```sh
+curl -s -X POST "https://<TON_BACKEND>/api/video" \
+  -H "Content-Type: application/json" \
+  -d '{"prompt":"A small cat running on the grass","img_url":"https://example.com/frame.png","parameters":{"resolution":"720P","duration":5}}'
+```
+
 
 ## Backblaze B2 (stockage gratuit — 10GB)
 1. Crée un compte Backblaze et va dans **B2 Cloud Storage** → **Buckets** → **Create a Bucket**.
