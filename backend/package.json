@@ -1,0 +1,20 @@
+{
+  "name": "ai-chat-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "ts-node-dev --respawn index.ts",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.380.0",
+    "@aws-sdk/s3-request-presigner": "^3.380.0",
+    "axios": "^1.4.0",
+    "express": "^4.18.2",
+    "openai": "^4.0.0"
+  },
+  "devDependencies": {
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.0"
+  }
+}
