@@ -1,8 +1,19 @@
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+let openaiClient: OpenAI | null = null;
+
+function getOpenAIClient(): OpenAI | null {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    return null;
+  }
+
+  if (!openaiClient) {
+    openaiClient = new OpenAI({ apiKey });
+  }
+
+  return openaiClient;
+}
 
 // ═══════════════════════════════════════════════════════════════
 // 🎯 PERSONNALISE CE PROMPT SELON TON PROJET
@@ -58,6 +69,11 @@ export const chatService = {
         Si on te demande le prix, précise que c'est abordable, code valable 1h, et que c'est une opportunité à ne pas manquer.
         N'hésite pas à utiliser des emojis pour rendre tes messages plus engageants.
       `;
+
+      const openai = getOpenAIClient();
+      if (!openai) {
+        return "Mode WAN 2.2 actif : le chat texte est désactivé (pas de clé OpenAI).";
+      }
 
       const messages: ChatMessage[] = [
         { role: 'system', content: dynamicPrompt },
